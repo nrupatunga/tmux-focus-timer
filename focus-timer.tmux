@@ -78,6 +78,7 @@ setup_scripts() {
     ln -sf "$CURRENT_DIR/scripts/timer-display.sh" "$bin_dir/tmux-timer-display"
     ln -sf "$CURRENT_DIR/scripts/timer-watcher.sh" "$bin_dir/tmux-timer-watcher"
     ln -sf "$CURRENT_DIR/scripts/status-right.sh" "$bin_dir/tmux-status-right"
+    ln -sf "$CURRENT_DIR/scripts/activity-monitor.sh" "$bin_dir/tmux-activity-monitor"
 }
 
 main() {

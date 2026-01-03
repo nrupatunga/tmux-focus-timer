@@ -1,96 +1,75 @@
 # tmux-focus-timer
 
-A Pomodoro-style focus timer plugin for tmux with distraction detection.
+Pomodoro-style focus timer for tmux with distraction detection and screen time tracking.
 
 ## Features
 
 - Multiple timers (up to 3 concurrent)
-- Progress bar in status bar
-- Pause/resume support
-- Distraction watcher (detects YouTube, Twitter, Netflix, etc.)
-- Configurable grace period before warning
-- Flash + popup notification when distracted
+- Progress bar in status bar: `●●●○○ work`
+- Pause/resume/rename support
+- Distraction watcher with popup alerts
+- Screen time tracking with hourly stats
 
 ## Installation
 
-### With TPM (recommended)
-
-Add to your `~/.tmux.conf`:
-
 ```bash
-set -g @plugin 'yourusername/tmux-focus-timer'
+set -g @plugin 'nrupatunga/tmux-focus-timer'
 ```
 
-Then press `prefix + I` to install.
-
-### Manual
+Then `prefix + I` to install, or manually:
 
 ```bash
-git clone https://github.com/yourusername/tmux-focus-timer ~/.tmux/plugins/tmux-focus-timer
-```
-
-Add to `~/.tmux.conf`:
-
-```bash
-run-shell ~/.tmux/plugins/tmux-focus-timer/focus-timer.tmux
+git clone https://github.com/nrupatunga/tmux-focus-timer ~/.tmux/plugins/tmux-focus-timer
+~/.tmux/plugins/tmux-focus-timer/setup.sh
 ```
 
 ## Usage
 
-### Commands
-
 ```bash
-tt 25m work       # Start 25min timer with label "work"
-tt 10m            # Start 10min timer
-tt stop           # Stop all timers
-tt stop 1         # Stop timer #1
-tt pause 1        # Pause timer #1
-tt resume 1       # Resume timer #1
-tt list           # List active timers
-tt focus 25m      # Start timer + distraction watcher
+tt 25m work          # Start 25min timer
+tt stop              # Stop all timers
+tt pause 1           # Pause timer #1
+tt resume 1          # Resume timer #1
+tt rename wokr work  # Rename by label
+tt list              # List active timers
+tt focus 25m         # Timer + distraction watcher
+
+# Screen time tracking
+tt monitorme         # Start tracking
+tt stopmonitor       # Stop tracking
+tt stats             # Show today's stats
+tt stats 2026-01-02  # Show specific day
 ```
 
-### Status Bar
+## Status Bar
 
-Add to your status-right in tmux.conf:
-
-```bash
-set -g status-right "#(~/.local/bin/tmux-status-right)#[fg=#787882]| #[fg=white]%H:%M"
-```
-
-### Key Binding
-
-Default: `prefix + T` starts a 25m focus timer.
-
-Customize in tmux.conf:
+Add to tmux.conf:
 
 ```bash
-set -g @focus-timer-key "F"  # Use prefix + F instead
+set -g status-right "#(~/.local/bin/tmux-status-right)%H:%M"
 ```
 
 ## Configuration
 
-Edit `~/.config/tmux-timer/distractions.conf`:
+Edit `~/.config/tmux-timer/distractions.conf` to customize distraction detection:
 
 ```bash
-# Grace period before warning (seconds)
+# Seconds to wait before showing warning (grace period)
 GRACE_PERIOD=30
 
-# Distracting sites (one per line)
+# Sites to block (matches window title, one per line)
 youtube
-x.com
 twitter
-netflix
 reddit
+netflix
 ```
+
+When a timer is running and you visit a blocked site, you get a 30s grace period before the popup warning appears.
 
 ## Dependencies
 
-- `xdotool` (for distraction detection)
-- `dunst` or notification daemon (optional, for desktop notifications)
-
 ```bash
-sudo apt install xdotool dunst
+sudo apt install xdotool x11-utils libnotify-bin
 ```
 
 ## License

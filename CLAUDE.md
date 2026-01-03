@@ -52,3 +52,7 @@ tt list           # List active timers
 - `xdotool` - Required for distraction detection (reads active window)
 - `xprop` - Used with xdotool to get window names
 - `notify-send` - Optional desktop notifications
+
+## Code Updates
+- Make sure to update readme always when new functionality or notifications are added
+- always keep the code simple and number of lines less
