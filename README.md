@@ -43,10 +43,16 @@ tt stats 2026-01-02  # Show specific day
 
 ## Status Bar
 
-Add to tmux.conf:
+Add `#(~/.local/bin/tmux-status-right)` to your `status-right` configuration:
 
 ```bash
 set -g status-right "#(~/.local/bin/tmux-status-right)%H:%M"
+```
+
+**Note:** If you use a tmux theme (e.g., falcon, dracula, catppuccin), the theme file may override `status-right`. In that case, edit the theme's config file instead of `~/.tmux.conf`. Check which file sets your status-right with:
+
+```bash
+tmux show-option -g status-right
 ```
 
 ## Configuration
